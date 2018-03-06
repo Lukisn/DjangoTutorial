@@ -3,7 +3,7 @@ from django.db import models
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
-    pud_date = models.DateTimeField("publishing date")
+    pub_date = models.DateTimeField("publishing date")
 
 
 class Choice(models.Model):
