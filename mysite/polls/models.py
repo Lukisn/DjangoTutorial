@@ -1,12 +1,15 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Polls Application Models."""
 from datetime import timedelta
-
-from django.db import models
+from django.db.models import Model, CharField, DateTimeField, ForeignKey, \
+    IntegerField, CASCADE
 from django.utils import timezone
 
 
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField("publishing date")
+class Question(Model):
+    question_text = CharField(max_length=200)
+    pub_date = DateTimeField("publishing date")
 
     def __str__(self):
         return f"{self.question_text}"
@@ -16,15 +19,15 @@ class Question(models.Model):
         a_day_ago = now - timedelta(days=1)
         return a_day_ago <= self.pub_date <= now
 
+    was_published_recently.short_description = "Published recently?"
     was_published_recently.admin_order_field = "pub_date"
     was_published_recently.boolean = True
-    was_published_recently.short_description = "Published recently?"
 
 
-class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
+class Choice(Model):
+    question = ForeignKey(Question, on_delete=CASCADE)
+    choice_text = CharField(max_length=200)
+    votes = IntegerField(default=0)
 
     def __str__(self):
         return f"{self.choice_text}"

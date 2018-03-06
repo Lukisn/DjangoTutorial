@@ -1,9 +1,10 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Polls Application Unit Tests."""
 from datetime import timedelta
-
 from django.utils import timezone
 from django.urls import reverse
 from django.test import TestCase
-
 from .models import Question
 
 
@@ -14,6 +15,7 @@ def create_question(text, days):
 
 
 class QuestionModelTests(TestCase):
+    """Unit tests for the Question model."""
 
     def test_was_published_recently_with_future_question(self):
         """Test function returns False on future question."""
@@ -35,6 +37,7 @@ class QuestionModelTests(TestCase):
 
 
 class QuestionIndexViewTests(TestCase):
+    """Unit test for the IndexView class."""
 
     def test_no_question(self):
         """Test an appropriate message is displayed if no question exists."""
@@ -77,6 +80,7 @@ class QuestionIndexViewTests(TestCase):
 
 
 class QuestionDetailViewTests(TestCase):
+    """Unit test for the DetailView class."""
 
     def test_future_question(self):
         """Test future questions aren't displayed in the details view."""
@@ -94,6 +98,7 @@ class QuestionDetailViewTests(TestCase):
 
 
 class QuestionResultsViewTests(TestCase):
+    """Unit test for the ResultsView class."""
 
     def test_future_question(self):
         """Test future questions aren't displayed in the results view."""

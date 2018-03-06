@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Polls Application Views."""
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -9,6 +12,7 @@ from .models import Question, Choice
 
 # Function Views:
 def index(request):
+    """Index view function."""
     latest_question_list = Question.objects.order_by("-pub_date")[:5]
     return render(request, "polls/index.html", {
         "latest_question_list": latest_question_list,
@@ -16,6 +20,7 @@ def index(request):
 
 
 def detail(request, question_id):
+    """Detail view function."""
     question = get_object_or_404(Question, pk=question_id)
     return render(request, "polls/detail.html", {
         "question": question
@@ -23,6 +28,7 @@ def detail(request, question_id):
 
 
 def vote(request, question_id):
+    """Vote view function."""
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST["choice"])
@@ -38,12 +44,14 @@ def vote(request, question_id):
 
 
 def results(request, question_id):
+    """Results view function."""
     question = get_object_or_404(Question, pk=question_id)
     return render(request, "polls/results.html", {"question": question})
 
 
 # Generic Class Views:
 class IndexView(generic.ListView):
+    """Index view class."""
     template_name = "polls/index.html"
     context_object_name = "latest_question_list"
 
@@ -55,6 +63,7 @@ class IndexView(generic.ListView):
 
 
 class DetailView(generic.DetailView):
+    """Detail view class."""
     model = Question
     template_name = "polls/detail.html"
 
@@ -64,6 +73,7 @@ class DetailView(generic.DetailView):
 
 
 class ResultsView(generic.DetailView):
+    """Results view class."""
     model = Question
     template_name = "polls/results.html"
 

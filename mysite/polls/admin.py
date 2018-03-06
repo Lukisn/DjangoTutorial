@@ -1,14 +1,16 @@
-from django.contrib import admin
-
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Admin interface configuration."""
+from django.contrib.admin import ModelAdmin, TabularInline, site
 from .models import Question, Choice
 
 
-class ChoiceInline(admin.TabularInline):
+class ChoiceInline(TabularInline):
     model = Choice
     extra = 1
 
 
-class QuestionAdmin(admin.ModelAdmin):
+class QuestionAdmin(ModelAdmin):
     list_display = ["question_text", "pub_date", "was_published_recently"]
     list_filter = ["pub_date"]
     search_fields = ["question_text"]
@@ -20,4 +22,4 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
 
 
-admin.site.register(Question, QuestionAdmin)
+site.register(Question, QuestionAdmin)
