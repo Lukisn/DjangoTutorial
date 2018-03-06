@@ -77,6 +77,7 @@ class QuestionIndexViewTests(TestCase):
 
 
 class QuestionDetailViewTests(TestCase):
+
     def test_future_question(self):
         """Test future questions aren't displayed in the details view."""
         future_question = create_question(text="Future question.", days=5)
@@ -88,5 +89,22 @@ class QuestionDetailViewTests(TestCase):
         """Test past questions are displayed in the details view."""
         past_question = create_question(text="Past Question.", days=-5)
         url = reverse("polls:detail", args=(past_question.id,))
+        response = self.client.get(url)
+        self.assertContains(response, past_question.question_text)
+
+
+class QuestionResultsViewTests(TestCase):
+
+    def test_future_question(self):
+        """Test future questions aren't displayed in the results view."""
+        future_question = create_question(text="Future question.", days=5)
+        url = reverse("polls:results", args=(future_question.id,))
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_past_question(self):
+        """Test past questions are displayed in the results view."""
+        past_question = create_question(text="Past Question.", days=-5)
+        url = reverse("polls:results", args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)

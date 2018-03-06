@@ -60,9 +60,13 @@ class DetailView(generic.DetailView):
 
     def get_queryset(self):
         """Return question details if published yet."""
-        return Question.objets.filter(pub_date__lte=timezone.now())
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 
 class ResultsView(generic.DetailView):
     model = Question
     template_name = "polls/results.html"
+
+    def get_queryset(self):
+        """Return question results if published yet."""
+        return Question.objects.filter(pub_date__lte=timezone.now())
