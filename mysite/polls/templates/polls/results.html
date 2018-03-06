@@ -1,12 +1,16 @@
 {% extends "polls/base.html" %}
 
 {% block content %}
-    <h1>{{ question.question_text }}</h1>
-    <ul>
-        {% for choice in question.choice_set.all %}
-        <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
-    <a href="{% url 'polls:index' %}">Other polls</a>
+<h1>{{ question.question_text }}</h1>
+
+{% if success_message %}
+<div class="alert alert-success" role="alert">{{ success_message }}</div>
+{% endif %}
+
+<ul>
+    {% for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'polls:detail' question.id %}">Vote again?</a>
 {% endblock content %}
