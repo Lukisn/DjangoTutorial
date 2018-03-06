@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.utils import timezone
 from django.views import generic
 
 from .models import Question, Choice
@@ -16,10 +17,9 @@ def index(request):
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    context = {
+    return render(request, "polls/detail.html", {
         "question": question
-    }
-    return render(request, "polls/detail.html", context)
+    })
 
 
 def vote(request, question_id):
@@ -32,7 +32,7 @@ def vote(request, question_id):
             "error_message": "You didn't select a choice!",
         })
     else:
-        selected_choice.votes += 1
+        selected_choice.votes += 1  # FIXME: race condition!
         selected_choice.save()
         return HttpResponseRedirect(reverse("polls:results", args=(question_id,)))
 
@@ -49,7 +49,9 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last five questions."""
-        return Question.objects.order_by("-pub_date")[:5]
+        return Question.objects\
+            .filter(pub_date__lte=timezone.now())\
+            .order_by("-pub_date")[:5]
 
 
 class DetailView(generic.DetailView):
