@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 """Polls Application Views."""
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.utils import timezone
-from django.views import generic
+from django.db.models import F
 
 from .models import Question, Choice
 
@@ -21,12 +21,14 @@ def index(request):
     })
 
 
-def detail(request, question_id):  # TODO: implement filter
+def detail(request, question_id):
     """Detail view function."""
     question = get_object_or_404(Question, pk=question_id)
-    return render(request, "polls/detail.html", {
-        "question": question
-    })
+    if question.pub_date <= timezone.now():
+        return render(request, "polls/detail.html", {
+            "question": question
+        })
+    raise Http404("This question is not yet published!")
 
 
 def vote(request, question_id):
@@ -40,46 +42,15 @@ def vote(request, question_id):
             "error_message": "You didn't select a choice!",
         })
     else:
-        selected_choice.votes += 1  # FIXME: race condition!
+        selected_choice.votes = F("votes") + 1
         selected_choice.save()
         return HttpResponseRedirect(reverse("polls:results",
                                             args=(question_id,)))
 
 
-def results(request, question_id):  # TODO: implement filter
+def results(request, question_id):
     """Results view function."""
     question = get_object_or_404(Question, pk=question_id)
-    return render(request, "polls/results.html", {"question": question})
-
-
-# # Generic Class Views:
-# class IndexView(generic.ListView):
-#     """Index view class."""
-#     template_name = "polls/index.html"
-#     context_object_name = "latest_question_list"
-#
-#     def get_queryset(self):
-#         """Return the last five questions."""
-#         return Question.objects\
-#             .filter(pub_date__lte=timezone.now())\
-#             .order_by("-pub_date")[:5]
-#
-#
-# class DetailView(generic.DetailView):
-#     """Detail view class."""
-#     model = Question
-#     template_name = "polls/detail.html"
-#
-#     def get_queryset(self):
-#         """Return question details if published yet."""
-#         return Question.objects.filter(pub_date__lte=timezone.now())
-#
-#
-# class ResultsView(generic.DetailView):
-#     """Results view class."""
-#     model = Question
-#     template_name = "polls/results.html"
-#
-#     def get_queryset(self):
-#         """Return question results if published yet."""
-#         return Question.objects.filter(pub_date__lte=timezone.now())
+    if question.pub_date <= timezone.now():
+        return render(request, "polls/results.html", {"question": question})
+    raise Http404("This question is not yet published!")
