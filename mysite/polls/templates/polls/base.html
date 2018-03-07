@@ -7,15 +7,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container" id="navigation">
-        {% block navigation %}
-        <ul class="nav">
-            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-            <li class="nav-item"><a class="nav-link active" href="{% url 'polls:index' %}">Polls</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'admin:index'%}">Admin</a></li>
-        </ul>
-        {% endblock navigation %}
-    </div>
+    {% block navigation %}
+    <nav class="navbar sticky-top navbar-expand navbar-light bg-light">
+        <a class="navbar-brand" href="#">Brand</a>
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/">Home</a>
+            <a class="nav-item nav-link active" href="{% url 'polls:index' %}">Polls</a>
+            <a class="nav-item nav-link" href="{% url 'admin:index'%}">Admin</a>
+        </div>
+    </nav>
+    {% endblock navigation %}
     <div class="container" id="content">
         {% block content %}{% endblock %}
     </div>
