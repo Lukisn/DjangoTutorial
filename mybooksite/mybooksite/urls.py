@@ -25,5 +25,5 @@ urlpatterns = [
     # app:
     path("books/", include("books.urls")),
     # default:
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
 ]

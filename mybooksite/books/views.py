@@ -1,11 +1,13 @@
+from random import choice
+
 from django.shortcuts import render
 from .models import Author, Publisher, Book
 
 
 def index(request):
-    book = Book.objects.first()
-    author = Author.objects.first()
-    publisher = Publisher.objects.first()
+    book = choice(Book.objects.all())
+    author = choice(Author.objects.all())
+    publisher = choice(Publisher.objects.all())
     return render(request, "books_index.html", {
         "book": book,
         "author": author,
