@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import current_time, hours_ahead
+import mybooksite.views as views
 
 
 urlpatterns = [
-    path("time/", current_time),
-    path("time/plus/<int:offset>", hours_ahead),
+    path("time/", views.current_time),
+    path("time/plus/<int:offset>", views.hours_ahead),
     # default:
     path('admin/', admin.site.urls),
 ]
