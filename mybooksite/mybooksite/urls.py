@@ -14,13 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 import mybooksite.views as views
 
 
 urlpatterns = [
+    # project:
     path("time/", views.current_time),
     path("time/plus/<int:offset>", views.hours_ahead),
+    # app:
+    path("books/", include("books.urls")),
     # default:
     # path('admin/', admin.site.urls),
 ]
