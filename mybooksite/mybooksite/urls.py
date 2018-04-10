@@ -22,5 +22,5 @@ urlpatterns = [
     path("time/", views.current_time),
     path("time/plus/<int:offset>", views.hours_ahead),
     # default:
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
 ]
