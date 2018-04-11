@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from django import forms
+from .models import Publisher
 
 
 TOPIC_CHOICES = (
@@ -28,3 +29,9 @@ class ContactForm(forms.Form):
             msg = f"Not enough words!" \
                   f"At least {min_words} needed, but only {num_words} given"
             raise forms.ValidationError(msg)
+
+
+class PublisherForm(forms.ModelForm):
+    class Meta:
+        model = Publisher
+        fields = ["name", "address", "city", "state_province", "country", "website"]

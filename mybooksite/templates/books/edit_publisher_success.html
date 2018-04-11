@@ -1,0 +1,11 @@
+{% extends "books/base.html" %}
+
+{% block title %}
+  Edit Publisher Success
+{% endblock %}
+
+{% block content %}
+  <h3>Editing Publisher Succeeded!</h3>
+  <a class="btn btn-outline-primary" href="{% url 'books:publisher_list' %}">Show all publishers</a>
+  <a class="btn btn-primary" href="{% url 'books:add_publisher' %}">Add another publisher</a>
+{% endblock %}

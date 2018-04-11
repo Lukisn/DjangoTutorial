@@ -6,6 +6,7 @@
 
 {% block content %}
   <h3>All Publishers</h3>
+  <a class="btn btn-primary" role="button" href="{% url 'books:add_publisher' %}">Add Publisher</a>
   <ul>
   {% for publisher in publishers %}
     <li><a href="{% url 'books:publisher_details' publisher.id %}">{{ publisher.name }}</a></li>

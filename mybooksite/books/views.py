@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, reverse
 from django.db.models import Q
 from django.core.mail import send_mail
 from .models import Author, Publisher, Book
-from .forms import ContactForm
+from .forms import ContactForm, PublisherForm
 
 
 def index(request):
@@ -90,3 +90,34 @@ def contact(request):
 
 def contact_thanks(request):
     return render(request, "books/contact_thanks.html")
+
+
+def add_publisher(request):
+    if request.method == "POST":
+        form = PublisherForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse("books:add_publisher_success"))
+    else:
+        form = PublisherForm()
+    return render(request, "books/add_publisher.html", {"form": form})
+
+
+def add_publisher_success(request):
+    return render(request, "books/add_publisher_success.html")
+
+
+def edit_publisher(request, publisher_id):
+    publisher = Publisher.objects.get(id=publisher_id)
+    if request.method == "POST":
+        form = PublisherForm(request.POST, instance=publisher)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse("books:edit_publisher_success"))
+    else:
+        form = PublisherForm(instance=publisher)
+    return render(request, "books/edit_publisher.html", {"form": form})
+
+
+def edit_publisher_success(request):
+    return render(request, "books/edit_publisher_success.html")

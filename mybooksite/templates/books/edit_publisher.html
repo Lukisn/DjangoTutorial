@@ -4,12 +4,12 @@
 {# https://simpleisbetterthancomplex.com/article/2017/08/19/how-to-render-django-form-manually.html#rendering-bootstrap-4-forms #}
 
 {% block title %}
-  Contact
+  Edit Publisher
 {% endblock %}
 
 {% block content %}
-  <h3>Contact</h3>
-  <form action="{% url 'books:contact' %}" method="POST">
+  <h3>Edit Publisher</h3>
+  <form action="{% url 'books:edit_publisher' form.instance.id %}" method="POST">
     {% csrf_token %}
     {% if form.non_field_errors %}
       <div class="alert alert-danger" role="alert">
@@ -34,6 +34,7 @@
         {% endif %}
       </div>
     {% endfor %}
-    <button class="btn btn-primary" type="submit">Submit</button>
+    <button class="btn btn-danger" type="reset" value="Clear">Clear</button>
+    <button class="btn btn-primary" type="submit" value="Save">Save</button>
   </form>
 {% endblock %}

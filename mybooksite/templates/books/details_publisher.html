@@ -6,15 +6,20 @@
 
 {% block content %}
   <h3>{{ publisher.name }}</h3>
+  <a class="btn btn-primary" role="button" href="{% url 'books:edit_publisher' publisher.id %}">Edit</a>
   <p>Address: {{ publisher.address }}</p>
   <p>City: {{ publisher.city }}</p>
   <p>State/Province: {{ publisher.state_province }}</p>
   <p>Country: {{ publisher.country }}</p>
   <p>Website: <a href="#">{{ publisher.website }}</a></p>
   <p>Books:</p>
+  {% if publisher.book_set_all %}
   <ul>
     {% for book in publisher.book_set.all %}
       <li><a href="{% url 'books:book_details' book.id %}">{{ book.title }}</a></li>
     {% endfor %}
   </ul>
+  {% else %}
+    <p>No books saved for this publisher.</p>
+  {% endif %}
 {% endblock %}
