@@ -20,8 +20,9 @@ import mybooksite.views as views
 
 urlpatterns = [
     # project:
-    path("time/", views.current_time),
-    path("time/plus/<int:offset>", views.hours_ahead),
+    path("", views.main, name="main"),
+    path("time/", views.current_time, name="time"),
+    path("time/plus/<int:offset>", views.hours_ahead, name="ahead"),
     # app:
     path("books/", include("books.urls")),
     # default:

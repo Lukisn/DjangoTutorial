@@ -125,4 +125,3 @@ STATIC_URL = '/static/'
 # TODO: get media serving running
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
-

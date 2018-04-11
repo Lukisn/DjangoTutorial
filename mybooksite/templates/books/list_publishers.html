@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "books/base.html" %}
 
 {% block title %}
   Publishers List
@@ -8,7 +8,7 @@
   <h3>All Publishers</h3>
   <ul>
   {% for publisher in publishers %}
-    <li><a href="#">{{ publisher }}</a></li>
+    <li><a href="{% url 'books:publisher_details' publisher.id %}">{{ publisher.name }}</a></li>
   {% endfor %}
   </ul>
 {% endblock %}

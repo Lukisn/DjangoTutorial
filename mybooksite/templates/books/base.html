@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <a href="{% url 'main' %}">MySite</a>
+  <span>|</span>
+  <a href="{% url 'books:index' %}">Home</a>
+  <a href="{% url 'books:book_list' %}">Books</a>
+  <a href="{% url 'books:author_list' %}">Authors</a>
+  <a href="{% url 'books:publisher_list' %}">Publishers</a>
+  <hr />
+{% endblock %}

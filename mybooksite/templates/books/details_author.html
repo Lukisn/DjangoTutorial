@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "books/base.html" %}
 
 {% block title %}
   Author Details
@@ -13,7 +13,7 @@
   <p>Books:</p>
   <ul>
     {% for book in author.book_set.all %}
-    <li><a href="#">{{ book.title }}</a</li>
+    <li><a href="{% url 'books:book_details' book.id %}">{{ book.title }}</a></li>
     {% endfor %}
   </ul>
 {% endblock %}

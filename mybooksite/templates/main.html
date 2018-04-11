@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Main Page
+{% endblock %}
+
+{% block header %}
+  <a href="{% url 'main' %}">MySite</a>
+  <span>|</span>
+  <a href="{% url 'time' %}">Time</a>
+  <a href="{% url 'ahead' 10 %}">Ahead</a>
+  <span>|</span>
+  <a href="{% url 'books:index' %}">Books App</a>
+  <hr />
+{% endblock %}
+
+{% block content %}
+  <h3>Welcome to the main page!</h3>
+{% endblock %}

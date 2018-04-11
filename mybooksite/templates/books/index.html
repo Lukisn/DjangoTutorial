@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "books/base.html" %}
 
 {% block title %}
   Books Index
@@ -6,14 +6,14 @@
 
 {% block content %}
   <h3>Random Book</h3>
-  <p><a href="">{{ book }}</a></p>
-  <p><a href="#">See all</a></p>
+  <p><a href="{% url 'books:book_details' book.id %}">{{ book.title }}</a></p>
+  <p><a href="{% url 'books:book_list' %}">See all books</a></p>
 
   <h3>Random Author</h3>
-  <p><a href="#">{{ author }}</a></p>
-  <p><a href="#">See all</a></p>
+  <p><a href="{% url 'books:author_details' author.id %}">{{ author.full_name }}</a></p>
+  <p><a href="{% url 'books:author_list' %}">See all authors</a></p>
 
   <h3>Random Publisher</h3>
-  <p><a href="#">{{ publisher }}</a></p>
-  <p><a href="#">See all</a></p>
+  <p><a href="{% url 'books:publisher_details' publisher.id %}">{{ publisher.name }}</a></p>
+  <p><a href="{% url 'books:publisher_list' %}">See all publishers</a></p>
 {% endblock %}
