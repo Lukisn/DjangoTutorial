@@ -23,6 +23,7 @@ urlpatterns = [
     path("publisher/add/success", views.add_publisher_success, name="add_publisher_success"),
     path("publisher/edit/<int:publisher_id>", views.edit_publisher, name="edit_publisher"),
     path("publisher/edit/success", views.edit_publisher_success, name="edit_publisher_success"),
+    # TODO: factor out generic views for listing, details, adding and editing
 
     path("search", views.search, name="search"),
 

@@ -26,7 +26,7 @@ class ContactForm(forms.Form):
         message = self.cleaned_data.get("message", "")
         num_words = len(message.split())
         if num_words < min_words:
-            msg = f"Not enough words!" \
+            msg = f"Not enough words! " \
                   f"At least {min_words} needed, but only {num_words} given"
             raise forms.ValidationError(msg)
 
