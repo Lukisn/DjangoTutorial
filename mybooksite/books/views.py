@@ -1,8 +1,10 @@
 from random import choice
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.db.models import Q
+from django.core.mail import send_mail
 from .models import Author, Publisher, Book
+from .forms import ContactForm
 
 
 def index(request):
@@ -64,3 +66,27 @@ def search(request):
         "query": query,
         "results": results,
     })
+
+
+def contact(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            topic = form.cleaned_data["topic"]
+            message = form.cleaned_data["message"]
+            sender = form.cleaned_data.get("sender", "noreply@example.com")
+            send_mail(
+                subject=f"Feedback from your site, topic: {topic}",
+                message=message,
+                from_email=sender,
+                recipient_list=["administrator@example.com"],
+                fail_silently=True,
+            )
+            return redirect(reverse("books:contact_thanks"))
+    else:
+        form = ContactForm()
+    return render(request, "books/contact.html", {"form": form})
+
+
+def contact_thanks(request):
+    return render(request, "books/contact_thanks.html")

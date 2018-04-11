@@ -125,3 +125,12 @@ STATIC_URL = '/static/'
 # TODO: get media serving running
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+
+
+# Email: TODO: set this up to use email
+# EMAIL_HOST = ""
+# EMAIL_PORT =
+# EMAIL_HOST_USER = ""
+# EMAIL_HOST_PASSWORD = ""
+# EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = True
