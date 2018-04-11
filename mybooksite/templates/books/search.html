@@ -1,0 +1,32 @@
+{% extends "books/base.html" %}
+
+{% block title %}
+  Search{% if query %} Results{% endif %}
+{% endblock %}
+
+{% block content %}
+  <h3>Search</h3>
+  <form class="form-inline" action="{% url 'books:search' %}" method="GET">
+    <label for="q">Search: </label>
+    <input class="form-control ml-2" type="text" name="q" value="{% if query %}{{ query|escape }}{% endif %}" />
+    <button class="btn btn-primary ml-2" type="submit">Search</button>
+  </form>
+  {% if query %}
+    <hr />
+    <h3>Results</h3>
+    {% if results %}
+      <ul>
+      {% for book in results %}
+        <li>
+          <a href="{% url 'books:book_details' book.id %}">{{ book.title }}</a>
+          {% for author in book.authors.all %}
+            {% if forloop.first %}({% endif %}<a href="{% url 'books:author_details' author.id %}">{{ author }}</a>{% if forloop.last %}){% else %}, {% endif %}
+          {% endfor %}
+        </li>
+      {% endfor %}
+      </ul>
+    {% else %}
+      <p>No matches found!</p>
+    {% endif %}
+  {% endif %}
+{% endblock %}

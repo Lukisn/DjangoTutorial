@@ -1,6 +1,7 @@
 from random import choice
 
 from django.shortcuts import render
+from django.db.models import Q
 from .models import Author, Publisher, Book
 
 
@@ -46,4 +47,20 @@ def publisher_details(request, publisher_id):
     publisher = Publisher.objects.get(id=publisher_id)
     return render(request, "books/details_publisher.html", {
         "publisher": publisher
+    })
+
+
+def search(request):
+    query = request.GET.get("q", "").strip()
+    results = []
+    if query:
+        qset = (  # create a complex query by "OR"ing the queries together:
+            Q(title__contains=query) |
+            Q(authors__first_name__contains=query) |
+            Q(authors__last_name__contains=query)
+        )
+        results = Book.objects.filter(qset).distinct()
+    return render(request, "books/search.html", {
+        "query": query,
+        "results": results,
     })

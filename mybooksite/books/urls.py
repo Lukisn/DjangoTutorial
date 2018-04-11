@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from django.urls import path
 from .views import index, list_authors, list_books, list_publishers, \
-    author_details, book_details, publisher_details
+    author_details, book_details, publisher_details, search
 
 
 app_name = 'books'
@@ -15,4 +15,5 @@ urlpatterns = [
     path("publisher", list_publishers, name="publisher_list"),
     path("publisher/<int:publisher_id>", publisher_details,
          name="publisher_details"),
+    path("search", search, name="search"),
 ]
