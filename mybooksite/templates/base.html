@@ -15,7 +15,13 @@
       {% block content %}{% endblock %}
       {% block footer %}
         <hr />
-        <p class="text-muted">Thank you for visiting our site! &copy; 2018</p>
+        <div class="float-left">
+          <small>
+            <p class="text-muted">Thank you for visiting our site! &copy; 2018</p>
+          </small>
+        </div>
+        <div class="float-right">
+          <small><a href="{% url 'admin:index' %}">admin</a></small></div>
       {% endblock %}
     </div>
     {# Bootstrap JavaScript #}
