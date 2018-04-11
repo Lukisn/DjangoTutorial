@@ -11,9 +11,15 @@ TOPIC_CHOICES = (
 
 
 class ContactForm(forms.Form):
-    topic = forms.ChoiceField(choices=TOPIC_CHOICES)
-    message = forms.CharField(widget=forms.Textarea())
-    sender = forms.EmailField(required=False)
+    topic = forms.ChoiceField(
+        label="Topic", choices=TOPIC_CHOICES,
+        help_text="Select the topic closest related to your feedback.")
+    message = forms.CharField(
+        label="Message", widget=forms.Textarea,
+        help_text="Write your detailed feedback message here.")
+    sender = forms.EmailField(
+        label="Sender", required=False,
+        help_text="Enter your email address here so we can come back to you. (optional)")
 
     def clean_message(self, min_words=10):
         message = self.cleaned_data.get("message", "")

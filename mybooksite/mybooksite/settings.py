@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "books",
+    "widget_tweaks",
+    # defaults:
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

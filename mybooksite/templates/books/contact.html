@@ -1,4 +1,7 @@
 {% extends "books/base.html" %}
+{% load widget_tweaks %}
+{# See the following article for info on using Bootstrap 4 forms: #}
+{# https://simpleisbetterthancomplex.com/article/2017/08/19/how-to-render-django-form-manually.html#rendering-bootstrap-4-forms #}
 
 {% block title %}
   Contact
@@ -8,9 +11,32 @@
   <h3>Contact</h3>
   <form action="{% url 'books:contact' %}" method="POST">
     {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-    </table>
-    <p><button class="btn btn-primary" type="submit">Submit</button></p>
+    {% for hidden_field in form.hidden_fields %}
+      {{ hidden_field }}
+    {% endfor %}
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger" role="alert">
+        {% for error in form.non_field_errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% for field in form.visible_fields %}
+      <div class="form-group">
+        {{ field.label_tag }}
+        {% if field.errors %}
+          <div class="alert alert-danger" role="alert">
+            {% for error in field.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% render_field field class="form-control" %}
+        {% if field.help_text %}
+          <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button class="btn btn-primary" type="submit">Submit</button>
   </form>
 {% endblock %}
