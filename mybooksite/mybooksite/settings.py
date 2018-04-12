@@ -31,8 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # custom:
     "books",
     "widget_tweaks",
+    # dev:
+    "django.contrib.admindocs",
     # defaults:
     'django.contrib.admin',
     'django.contrib.auth',

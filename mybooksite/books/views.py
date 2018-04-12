@@ -36,6 +36,7 @@ def list_publishers(request):
 
 
 def author_details(request, author_id):
+    # TODO: use get_object_or_404 shortcut
     author = Author.objects.get(id=author_id)
     return render(request, "books/details_author.html", {"author": author})
 

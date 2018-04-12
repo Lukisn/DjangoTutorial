@@ -25,6 +25,8 @@ urlpatterns = [
     path("time/plus/<int:offset>", views.hours_ahead, name="ahead"),
     # app:
     path("books/", include("books.urls")),
+    # dev:
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     # default:
     path('admin/', admin.site.urls),
 ]
