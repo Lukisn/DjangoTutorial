@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-import mybooksite.views as views
+from . import views
 
 
 urlpatterns = [
@@ -23,6 +23,11 @@ urlpatterns = [
     path("", views.main, name="main"),
     path("time/", views.current_time, name="time"),
     path("time/plus/<int:offset>", views.hours_ahead, name="ahead"),
+
+    path("login/", views.login, name="login"),
+    path("logout/", views.logout, name="logout"),
+    path("register/", views.register, name="register"),
+
     # app:
     path("books/", include("books.urls")),
     # dev:

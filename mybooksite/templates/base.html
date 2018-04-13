@@ -1,27 +1,26 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     {# Bootstrap CSS #}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    {# Iconic Icons #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
     <title>{% block title %}MyBookSite{% endblock %}</title>
   </head>
   <body>
     <div class="container" id="page">
       {% block header %}
-        <h1>Header</h1>
+        <h3>Header</h3>
+        <hr />
       {% endblock %}
-      {% block content %}{% endblock %}
+      {% block content %}
+        <h3>Content</h3>
+      {% endblock %}
       {% block footer %}
         <hr />
-        <div class="float-left">
-          <small>
-            <p class="text-muted">Thank you for visiting our site! &copy; 2018</p>
-          </small>
-        </div>
-        <div class="float-right">
-          <small><a href="{% url 'admin:index' %}">admin</a></small></div>
+        <h3>Footer</h3>
       {% endblock %}
     </div>
     {# Bootstrap JavaScript #}

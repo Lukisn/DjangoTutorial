@@ -27,7 +27,7 @@ class ContactForm(forms.Form):
         num_words = len(message.split())
         if num_words < min_words:
             msg = f"Not enough words! " \
-                  f"At least {min_words} needed, but only {num_words} given"
+                  f"At least {min_words} needed, but only {num_words} given."
             raise forms.ValidationError(msg)
 
 
