@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404, \
     get_list_or_404
 from django.db.models import Q
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
 from .models import Author, Publisher, Book
 from .forms import ContactForm, PublisherForm
 
@@ -103,7 +104,7 @@ def contact_thanks(request):
     return render(request, "books/contact_thanks.html")
 
 
-# TODO: make manipulations only available to logged in users
+@login_required  # redirects to settings.LOGIN_URL
 def add_publisher(request):
     """Provide an add form for publishers."""
     if request.method == "POST":
@@ -116,11 +117,13 @@ def add_publisher(request):
     return render(request, "books/add_publisher.html", {"form": form})
 
 
+@login_required
 def add_publisher_success(request):
     """Show a status message on successfully added publisher."""
     return render(request, "books/add_publisher_success.html")
 
 
+@login_required
 def edit_publisher(request, publisher_id):
     """Provide an edit form for publishers."""
     publisher = Publisher.objects.get(id=publisher_id)
@@ -134,6 +137,7 @@ def edit_publisher(request, publisher_id):
     return render(request, "books/edit_publisher.html", {"form": form})
 
 
+@login_required
 def edit_publisher_success(request):
     """Show a status message on successfully edited publishers."""
     return render(request, "books/edit_publisher_success.html")

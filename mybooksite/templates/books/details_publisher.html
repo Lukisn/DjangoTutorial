@@ -5,15 +5,33 @@
 {% endblock %}
 
 {% block content %}
-  <h3>{{ publisher.name }}</h3>
-  <a class="btn btn-primary" role="button" href="{% url 'books:edit_publisher' publisher.id %}">Edit</a>
-  <p>Address: {{ publisher.address }}</p>
-  <p>City: {{ publisher.city }}</p>
-  <p>State/Province: {{ publisher.state_province }}</p>
-  <p>Country: {{ publisher.country }}</p>
-  <p>Website: <a href="#">{{ publisher.website }}</a></p>
-  <p>Books:</p>
-  {% if publisher.book_set_all %}
+  <h3>{{ publisher.name }} Details</h3>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Address</td>
+        <td>{{ publisher.address }}</td>
+      </tr>
+      <tr>
+        <td>City</td>
+        <td>{{ publisher.city }}</td>
+      </tr>
+      <tr>
+        <td>State/Province</td>
+        <td>{{ publisher.state_province }}</td>
+      </tr>
+      <tr>
+        <td>Country</td>
+        <td>{{ publisher.country }}</td>
+      </tr>
+      <tr>
+        <td>Website</td>
+        <td><a href="#">{{ publisher.website }}</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Books by {{ publisher.name }}:</h3>
+  {% if publisher.book_set.all %}
   <ul>
     {% for book in publisher.book_set.all %}
       <li><a href="{% url 'books:book_details' book.id %}">{{ book.title }}</a></li>
@@ -21,5 +39,10 @@
   </ul>
   {% else %}
     <p>No books saved for this publisher.</p>
+  {% endif %}
+  {% if user.is_authenticated and perms.books.change_publisher %}
+    <a class="btn btn-sm btn-primary" href="{% url 'books:edit_publisher' publisher.id %}">Edit Details</a>
+  {% else %}
+    <a class="btn btn-sm btn-primary disabled" href="">Edit Details</a>
   {% endif %}
 {% endblock %}

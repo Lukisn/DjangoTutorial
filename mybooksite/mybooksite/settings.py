@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '7wv9!y*(k-d1s41b%c!6%*scvo^0=@ajl&w1fk5=8*vv$i)p7&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1"]
 
@@ -139,3 +139,6 @@ MEDIA_URL = "/media/"
 # EMAIL_HOST_PASSWORD = ""
 # EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = True
+
+
+LOGIN_URL = "/login/"

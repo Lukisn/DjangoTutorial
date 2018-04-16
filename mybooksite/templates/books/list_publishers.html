@@ -6,10 +6,18 @@
 
 {% block content %}
   <h3>All Publishers</h3>
-  <a class="btn btn-primary" role="button" href="{% url 'books:add_publisher' %}">Add Publisher</a>
+  <p>
+    Currently <span class="badge badge-pill badge-secondary">{{ publishers|length }}</span> publishers are available.
+    Click publisher name from the list to show details.
+  </p>
   <ul>
   {% for publisher in publishers %}
     <li><a href="{% url 'books:publisher_details' publisher.id %}">{{ publisher.name }}</a></li>
   {% endfor %}
   </ul>
+  {% if user.is_authenticated and perms.books.add_publisher %}
+    <a class="btn btn-sm btn-primary" href="{% url 'books:add_publisher' %}">Add Publisher</a>
+  {% else %}
+    <a class="btn btn-sm btn-primary disabled" href="">Add Publisher</a>
+  {% endif %}
 {% endblock %}
