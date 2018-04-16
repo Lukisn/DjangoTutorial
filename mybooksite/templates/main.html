@@ -13,6 +13,7 @@
   <a href="{% url 'books:index' %}">Books App</a>
   <span>|</span>
   {% if user.is_authenticated %}
+    {# TODO: add csrf stuff for security! #}
     <span>Logged in as <a href="#">{{ user.username }}</a></span>
     <a class="btn btn-sm btn-outline-danger" href="{% url 'logout' %}"><span class="oi oi-account-logout"></span> Logout</a>
   {% else %}
