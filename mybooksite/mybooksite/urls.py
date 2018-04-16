@@ -20,7 +20,7 @@ from . import views
 
 urlpatterns = [
     # project:
-    path("", views.main, name="main"),
+    path("", views.index, name="index"),
     path("time/", views.current_time, name="time"),
     path("time/plus/<int:offset>", views.hours_ahead, name="ahead"),
 

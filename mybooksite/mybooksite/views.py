@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 from .forms import LoginForm, RegisterForm
 
 
-def main(request):
-    return render(request, "main.html")
+def index(request):
+    return render(request, "index.html")
 
 
 def current_time(request):
@@ -33,7 +33,7 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user is not None and user.is_active:
                 auth.login(request, user)
-                return redirect(reverse("main"))
+                return redirect(reverse("index"))
     else:
         form = LoginForm()
     return render(request, "login.html", {"form": form})
@@ -41,7 +41,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect(reverse("main"))
+    return redirect(reverse("index"))
 
 
 def register(request):

@@ -1,24 +1,10 @@
 {% extends "base.html" %}
 
-{% block header %}
-  <a href="{% url 'main' %}">MySite</a>
-  <span>|</span>
-  <a href="{% url 'books:index' %}">Home</a>
-  <a href="{% url 'books:book_list' %}">Books</a>
-  <a href="{% url 'books:author_list' %}">Authors</a>
-  <a href="{% url 'books:publisher_list' %}">Publishers</a>
-  <span>|</span>
-  <a href="{% url 'books:search' %}">Search</a>
-  <a href="{% url 'books:contact' %}">Contact</a>
-  <hr />
-{% endblock %}
-
-{% block footer %}
-  <hr />
-  <div class="float-left">
-    <p class="text-muted"><small>Thank you for visiting our site! &copy; 2018</small></p>
-  </div>
-  <div class="float-right">
-    <small><a href="{% url 'admin:index' %}">admin</a></small>
-  </div>
+{% block navigation %}
+  <a class="nav-item nav-link" href="{% url 'books:index' %}">Home</a>
+  <a class="nav-item nav-link" href="{% url 'books:book_list' %}">Books</a>
+  <a class="nav-item nav-link" href="{% url 'books:author_list' %}">Authors</a>
+  <a class="nav-item nav-link" href="{% url 'books:publisher_list' %}">Publishers</a>
+  <a class="nav-item nav-link" href="{% url 'books:search' %}">Search</a>
+  <a class="nav-item nav-link" href="{% url 'books:contact' %}">Contact</a>
 {% endblock %}

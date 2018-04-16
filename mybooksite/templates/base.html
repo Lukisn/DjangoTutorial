@@ -12,15 +12,49 @@
   <body>
     <div class="container" id="page">
       {% block header %}
-        <h3>Header</h3>
-        <hr />
+        {#  TODO: include bootstrap navbar #}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="{% url 'index' %}">
+            <span class="oi oi-globe"></span>
+            MySite
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarContent">
+            <div class="navbar-nav mr-auto">
+              {% block navigation %}
+                <a class="nav-item nav-link" href="{% url 'time' %}">Now</a>
+                <a class="nav-item nav-link" href="{% url 'ahead' 10 %}">Ahead</a>
+                <a class="nav-item nav-link" href="{% url 'books:index' %}">Books App</a>
+              {% endblock %}
+            </div>
+            <form class="form-inline my-2 my-lg-0">
+              {% if user.is_authenticated %}
+                <span class="text-muted">Logged in as <a href="#">{{ user.username }}</a> </span>
+                <a class="btn btn-sm btn-outline-danger ml-2" href="{% url 'logout' %}"><span class="oi oi-account-logout"></span> Logout</a>
+              {% else %}
+                <a class="btn btn-sm btn-primary" href="{% url 'register' %}"><span class="oi oi-clipboard"></span> Register</a>
+                <a class="btn btn-sm btn-outline-primary ml-2" href="{% url 'login' %}"><span class="oi oi-account-login"></span> Login</a>
+              {% endif %}
+            </form>
+          </div>
+        </nav>
+      {% endblock %}
+      {% block messages %}
+        {# block for showing possible messages #}
       {% endblock %}
       {% block content %}
-        <h3>Content</h3>
+        <h3>Welcome to the "base" page!</h3>
       {% endblock %}
       {% block footer %}
         <hr />
-        <h3>Footer</h3>
+        <div class="float-left">
+          <p class="text-muted"><small>Thank you for visiting our site! &copy; 2018</small></p>
+        </div>
+        <div class="float-right">
+          <small><a href="{% url 'admin:index' %}">admin</a></small>
+        </div>
       {% endblock %}
     </div>
     {# Bootstrap JavaScript #}
