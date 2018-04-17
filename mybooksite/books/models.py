@@ -1,3 +1,4 @@
+from hashlib import sha256
 from django.db import models
 
 
@@ -14,13 +15,19 @@ class Publisher(models.Model):
         return self.name
 
 
+def author_directory_path(instance, filename):
+    *_, extension = filename.split(".")
+    fnamehash = sha256(filename.encode("utf-8")).hexdigest()[-10:]
+    return f"authors/{fnamehash}.{extension}"
+
+
 class Author(models.Model):
     # implicit id
     salutation = models.CharField(max_length=10)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=40)
     email = models.EmailField()
-    photo = models.ImageField(upload_to="tmp/")
+    photo = models.ImageField(upload_to=author_directory_path)
 
     def __str__(self):
         return self.full_name()
